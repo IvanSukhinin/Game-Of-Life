@@ -1,16 +1,14 @@
-#include "field.h"
-#include "field_print.h"
 #include "figures.h"
+#include "life.h"
 
 #include <stdio.h>
+#include <unistd.h>
 
 int main()
 {
     unsigned char field[FIELD_SIZE][FIELD_SIZE];
 
-    init_field(field);
-    make_figure(field, &tumbler[0][0], 6, 7);
-    print_field(field);
+    game_of_life(field, &tumbler[0][0], 6, 7);
 
     return 0;
 }
