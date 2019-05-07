@@ -1,8 +1,7 @@
-#include "life.h"
 #include "figures.h"
+#include "life.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 int main()

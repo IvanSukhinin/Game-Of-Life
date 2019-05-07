@@ -1,7 +1,6 @@
 #include "field_print.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 void print_field(unsigned char field[FIELD_SIZE][FIELD_SIZE])
