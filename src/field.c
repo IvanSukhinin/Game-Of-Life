@@ -1,5 +1,16 @@
 #include "field.h"
 
+void make_field(
+        unsigned char field[FIELD_SIZE][FIELD_SIZE],
+        unsigned char figure[],
+        int nlines,
+        int ncols)
+{
+    /*Создаем поле для игры*/
+    init_field(field);
+    put_figure_at_the_center(field, figure, nlines, ncols);
+}
+
 void init_field(unsigned char field[FIELD_SIZE][FIELD_SIZE])
 {
     /*Инициализация поля*/
@@ -10,7 +21,7 @@ void init_field(unsigned char field[FIELD_SIZE][FIELD_SIZE])
     }
 }
 
-void make_figure(
+void put_figure_at_the_center(
         unsigned char field[FIELD_SIZE][FIELD_SIZE],
         unsigned char figure[],
         int nlines,
