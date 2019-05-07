@@ -1,15 +1,54 @@
-.PHONY: all clean
+.PHONY: all test run_test clean
 
-CC = gcc
-CFLAGS = -Wall -Werror
+CC := gcc
+CFLAGS := -Wall -Werror
+LIFE := ./bin/life
+TEST := ./bin/test
+BUILD_SRC_DIR := ./build/src
+BUILD_TEST_DIR := ./build/test
 
-all: bin/life
+all: $(LIFE)
 
-bin/life: build/main.o
-	$(CC) build/main.o -o bin/life
+$(LIFE): $(BUILD_SRC_DIR)/main.o $(BUILD_SRC_DIR)/life.o $(BUILD_SRC_DIR)/logic.o $(BUILD_SRC_DIR)/field.o $(BUILD_SRC_DIR)/field_print.o
+	$(CC) $(CFLAGS) $(BUILD_SRC_DIR)/main.o $(BUILD_SRC_DIR)/life.o $(BUILD_SRC_DIR)/logic.o $(BUILD_SRC_DIR)/field.o $(BUILD_SRC_DIR)/field_print.o -o $(LIFE)
 
-build/main.o: src/main.c
-	$(CC) $(CFLAGS) -c src/main.c -o build/main.o
+$(BUILD_SRC_DIR)/main.o: src/main.c src/const.h src/figures.h
+	$(CC) $(CFLAGS) -c src/main.c -o $(BUILD_SRC_DIR)/main.o
+
+$(BUILD_SRC_DIR)/life.o: src/life.c src/const.h
+	$(CC) $(CFLAGS) -c src/life.c -o $(BUILD_SRC_DIR)/life.o
+
+$(BUILD_SRC_DIR)/logic.o: src/logic.c src/const.h
+	$(CC) $(CFLAGS) -c src/logic.c -o $(BUILD_SRC_DIR)/logic.o
+
+$(BUILD_SRC_DIR)/field.o: src/field.c src/const.h
+	$(CC) $(CFLAGS) -c src/field.c -o $(BUILD_SRC_DIR)/field.o
+
+$(BUILD_SRC_DIR)/field_print.o: src/field_print.c src/const.h
+	$(CC) $(CFLAGS) -c src/field_print.c -o $(BUILD_SRC_DIR)/field_print.o
+
+test: $(TEST)
+
+$(TEST): $(BUILD_TEST_DIR)/main.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o
+	$(CC) $(CFLAGS) $(BUILD_TEST_DIR)/main.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o -o $(TEST)
+
+$(BUILD_TEST_DIR)/main.o: test/main.c
+	$(CC) $(CFLAGS) -c -I thirdparty -I src test/main.c -o $(BUILD_TEST_DIR)/main.o 
+
+$(BUILD_TEST_DIR)/life.o: src/life.c src/const.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/life.c -o $(BUILD_TEST_DIR)/life.o
+
+$(BUILD_TEST_DIR)/logic.o: src/logic.c src/const.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/logic.c -o $(BUILD_TEST_DIR)/logic.o
+
+$(BUILD_TEST_DIR)/field.o: src/field.c src/const.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/field.c -o $(BUILD_TEST_DIR)/field.o
+
+$(BUILD_TEST_DIR)/field_print.o: src/field_print.c src/const.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/field_print.c -o $(BUILD_TEST_DIR)/field_print.o
+
+run_test: test
+	$(TEST)
 
 clean:
-	rm -rf build/*.o bin/life
+	rm -rf $(BUILD_TEST_DIR)/*.o $(BUILD_SRC_DIR)/*.o $(LIFE) $(TEST)
