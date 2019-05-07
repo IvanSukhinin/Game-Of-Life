@@ -12,6 +12,8 @@ void game_of_life(
         int nlines,
         int ncols)
 {
+    unsigned char temp_field[FIELD_SIZE][FIELD_SIZE];
+
     make_field(field, figure, nlines, ncols);
 
     while (1) {
@@ -20,13 +22,16 @@ void game_of_life(
         print_field(field);
         usleep(200000);
 
+        field_copy(field, temp_field);
+
         int neighbour_cell_count;
         int cell_life;
 
         for (int i = 1; i < FIELD_SIZE - 1; i++) {
             for (int j = 1; j < FIELD_SIZE - 1; j++) {
-                neighbour_cell_count = get_count_neighbours(field, i, j);
-                cell_life = life_or_death(field[i][j], neighbour_cell_count);
+                neighbour_cell_count = get_count_neighbours(temp_field, i, j);
+                cell_life
+                        = life_or_death(temp_field[i][j], neighbour_cell_count);
                 if (cell_life == 1) {
                     field[i][j] = 1;
                 } else if (cell_life == 0) {

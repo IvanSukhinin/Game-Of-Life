@@ -13,3 +13,6 @@ void put_figure_at_the_center(
         unsigned char figure[],
         int nlines,
         int ncols);
+void field_copy(
+        unsigned char field[FIELD_SIZE][FIELD_SIZE],
+        unsigned char temp_field[FIELD_SIZE][FIELD_SIZE]);

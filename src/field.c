@@ -37,3 +37,15 @@ void put_figure_at_the_center(
         }
     }
 }
+
+void field_copy(
+        unsigned char field[FIELD_SIZE][FIELD_SIZE],
+        unsigned char temp_field[FIELD_SIZE][FIELD_SIZE])
+{
+    /*Копируем поле*/
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < FIELD_SIZE; j++) {
+            temp_field[i][j] = field[i][j];
+        }
+    }
+}
