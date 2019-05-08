@@ -13,6 +13,7 @@ void game_of_life(
         int nlines,
         int ncols)
 {
+    /*Game of Life*/
     unsigned char temp_field[FIELD_SIZE][FIELD_SIZE];
 
     make_field(field, figure, nlines, ncols);
@@ -46,6 +47,7 @@ void game_of_life(
 
 int input(unsigned char** figure, int* nlines, int* nrows)
 {
+    /*User Choose*/
     int choose;
     printf("1 - Tumbler, 2 - Glider, 3 - Oscillator, 4 - Pentapolem, 5 - "
            "Tennis match, 6 - Spacehsip, 7 - Dragonfly, 8 - Gun\n");
