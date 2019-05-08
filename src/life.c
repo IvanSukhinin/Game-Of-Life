@@ -20,7 +20,7 @@ void game_of_life(
         clear_screen();
         printf("Press ctrl + c to exit\n");
         print_field(field);
-        usleep(200000);
+        usleep(100000);
 
         field_copy(field, temp_field);
 
