@@ -1,3 +1,3 @@
 #pragma once
 
-#define FIELD_SIZE 42
+#define FIELD_SIZE 52

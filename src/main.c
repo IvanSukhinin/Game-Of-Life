@@ -1,4 +1,3 @@
-#include "figures.h"
 #include "life.h"
 
 #include <stdio.h>
@@ -8,7 +7,16 @@ int main()
 {
     unsigned char field[FIELD_SIZE][FIELD_SIZE];
 
-    game_of_life(field, &tumbler[0][0], 6, 7);
+    unsigned char* figure;
+    int nlines, nrows;
+    int check_input;
+    check_input = input(&figure, &nlines, &nrows);
+    if (check_input == 1) {
+        printf("Err input\n");
+        return -1;
+    }
+
+    game_of_life(field, figure, nlines, nrows);
 
     return 0;
 }

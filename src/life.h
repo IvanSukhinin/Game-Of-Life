@@ -7,3 +7,4 @@ void game_of_life(
         unsigned char figure[],
         int nlines,
         int ncols);
+int input(unsigned char** figure, int* nlines, int* nrows);
