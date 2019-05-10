@@ -8,9 +8,18 @@ void gui(int argc, char* argv[])
 
     include_css();
 
-    create_window(&window, 800, 600);
+    create_window(&window, 800, 800);
 
     create_grid(&grid, &window, "grid");
+
+    GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE];
+    for (int i = 1; i < FIELD_SIZE - 1; i++) {
+        for (int j = 1; j < FIELD_SIZE - 1; j++) {
+            buttons[i][j] = gtk_button_new();
+            gtk_widget_set_name(buttons[i][j], "cell");
+            gtk_grid_attach(GTK_GRID(grid), buttons[i][j], i, j, 1, 1);
+        }
+    }
 
     gtk_widget_show_all(window);
     gtk_main();
@@ -51,7 +60,7 @@ void include_css()
             GTK_STYLE_PROVIDER(provider),
             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    const gchar* myCssFile = "grid.css";
+    const gchar* myCssFile = "./src/grid.css";
     GError* error = 0;
 
     gtk_css_provider_load_from_file(
