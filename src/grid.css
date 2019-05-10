@@ -1,0 +1,15 @@
+#grid {
+	background-color: black;
+}
+
+#cell {
+	min-height: 2px; 
+	min-width: 2px;
+	background: black;
+	border: .1px solid #ffffff;
+	border-radius: 0;
+}
+
+#cell:hover {
+	background: black;
+}
