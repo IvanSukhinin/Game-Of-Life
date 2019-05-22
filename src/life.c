@@ -3,32 +3,31 @@
 #include "field_print.h"
 #include "figures.h"
 #include "logic.h"
+#include "gui.h"
 
-#include <stdio.h>
 #include <unistd.h>
 
-void game_of_life(
-        unsigned char field[FIELD_SIZE][FIELD_SIZE],
-        unsigned char figure[],
-        int nlines,
-        int ncols)
+void game_of_life(int argc, char* argv[])
 {
     /*Game of Life*/
+    unsigned char field[FIELD_SIZE][FIELD_SIZE];
+    init_field(field);
+
+
+    GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE];
+
+    gui(argc, argv, buttons);
+
     unsigned char temp_field[FIELD_SIZE][FIELD_SIZE];
 
-    make_field(field, figure, nlines, ncols);
-
     while (1) {
-        clear_screen();
-        printf("Press ctrl + c to exit\n");
-        print_field(field);
-        usleep(75000);
+        print_field(field, buttons);
+        usleep(20000);
 
         field_copy(field, temp_field);
 
         int neighbour_cell_count;
         int cell_life;
-
         for (int i = 1; i < FIELD_SIZE - 1; i++) {
             for (int j = 1; j < FIELD_SIZE - 1; j++) {
                 neighbour_cell_count = get_count_neighbours(temp_field, i, j);
@@ -40,7 +39,8 @@ void game_of_life(
                     field[i][j] = 0;
                 }
             }
-            printf("\n");
         }
+        gtk_main_iteration();
     }
 }
+

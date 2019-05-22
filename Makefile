@@ -19,7 +19,7 @@ $(BUILD_SRC_DIR)/gui.o: src/gui.c src/const.h
 	$(CC) $(CFLAGS) -c src/gui.c -o $(BUILD_SRC_DIR)/gui.o `pkg-config --cflags --libs gtk+-3.0`
 
 $(BUILD_SRC_DIR)/life.o: src/life.c src/const.h
-	$(CC) $(CFLAGS) -c src/life.c -o $(BUILD_SRC_DIR)/life.o
+	$(CC) $(CFLAGS) -c src/life.c -o $(BUILD_SRC_DIR)/life.o `pkg-config --cflags --libs gtk+-3.0`
 
 $(BUILD_SRC_DIR)/logic.o: src/logic.c src/const.h
 	$(CC) $(CFLAGS) -c src/logic.c -o $(BUILD_SRC_DIR)/logic.o
@@ -28,7 +28,7 @@ $(BUILD_SRC_DIR)/field.o: src/field.c src/const.h
 	$(CC) $(CFLAGS) -c src/field.c -o $(BUILD_SRC_DIR)/field.o
 
 $(BUILD_SRC_DIR)/field_print.o: src/field_print.c src/const.h
-	$(CC) $(CFLAGS) -c src/field_print.c -o $(BUILD_SRC_DIR)/field_print.o
+	$(CC) $(CFLAGS) -c src/field_print.c -o $(BUILD_SRC_DIR)/field_print.o `pkg-config --cflags --libs gtk+-3.0`
 
 test: $(TEST)
 
