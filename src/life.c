@@ -15,12 +15,12 @@ void game_of_life(int argc, char* argv[])
 
 
     GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE];
-
-    gui(argc, argv, buttons);
+    int quit_flag = 1;
+    gui(argc, argv, buttons, &quit_flag);
 
     unsigned char temp_field[FIELD_SIZE][FIELD_SIZE];
 
-    while (1) {
+    while (quit_flag) {
         print_field(field, buttons);
         usleep(20000);
 

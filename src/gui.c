@@ -1,6 +1,6 @@
 #include "gui.h"
 
-void gui(int argc, char* argv[], GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE])
+void gui(int argc, char* argv[], GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE], int* quit_flag)
 {
     /*Отображение окна*/
     GtkWidget *window, *vbox, *grid;
@@ -10,6 +10,7 @@ void gui(int argc, char* argv[], GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE])
     include_css();
 
     create_window(&window, 600, 800);
+    g_signal_connect(window, "destroy", G_CALLBACK(quit), quit_flag);
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
@@ -43,7 +44,6 @@ void create_window(GtkWidget** window, gint width, gint height)
     gtk_window_set_title(GTK_WINDOW(*window), "Game of Life");
     gtk_window_set_default_size(GTK_WINDOW(*window), width, height);
     gtk_window_set_resizable(GTK_WINDOW(*window), TRUE);
-    g_signal_connect(window, "destroy", gtk_main_quit, "some inf");
 }
 
 void create_grid(GtkWidget** grid, GtkWidget** window, const gchar* name)
@@ -76,4 +76,11 @@ void include_css()
     gtk_css_provider_load_from_file(
             provider, g_file_new_for_path(myCssFile), &error);
     g_object_unref(provider);
+}
+
+void quit(GtkWidget* window, gpointer user_data)
+{
+    int* quit_flag = user_data;
+    *quit_flag = 0;
+    gtk_main_quit();
 }
