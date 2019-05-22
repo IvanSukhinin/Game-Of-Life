@@ -1,10 +1,13 @@
 #include "gui.h"
+#include "field.h"
+#include "figures.h"
 
 void gui(
         int argc,
         char* argv[],
         GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE],
-        int* quit_flag)
+        int* quit_flag,
+        unsigned char field[FIELD_SIZE][FIELD_SIZE])
 {
     /*Отображение окна*/
     GtkWidget *window, *vbox, *grid, *menu_grid, *menu_button[8];
@@ -27,7 +30,53 @@ void gui(
     create_menu(&vbox, &menu_grid, menu_button);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
+
+    signal_events(menu_button, field);
+
     gtk_widget_show_all(window);
+}
+
+void signal_events(
+        GtkWidget* menu_button[8], unsigned char field[FIELD_SIZE][FIELD_SIZE])
+{
+    /*Нажатие на кнопки*/
+    g_signal_connect(
+            G_OBJECT(menu_button[0]),
+            "clicked",
+            G_CALLBACK(tumbler_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[1]),
+            "clicked",
+            G_CALLBACK(glider_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[2]),
+            "clicked",
+            G_CALLBACK(oscillator_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[3]),
+            "clicked",
+            G_CALLBACK(pentapole_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[4]),
+            "clicked",
+            G_CALLBACK(tennis_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[5]),
+            "clicked",
+            G_CALLBACK(spaceship_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[6]),
+            "clicked",
+            G_CALLBACK(dragonfly_click),
+            field);
+    g_signal_connect(
+            G_OBJECT(menu_button[7]), "clicked", G_CALLBACK(gun_click), field);
 }
 
 void create_menu(
@@ -110,4 +159,44 @@ void include_css()
     gtk_css_provider_load_from_file(
             provider, g_file_new_for_path(myCssFile), &error);
     g_object_unref(provider);
+}
+
+void tumbler_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &tumbler[0][0], 6, 7);
+}
+
+void glider_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &glider[0][0], 3, 3);
+}
+
+void oscillator_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &oscillator[0][0], 12, 11);
+}
+
+void pentapole_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &pentapole[0][0], 12, 12);
+}
+
+void tennis_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &tennis[0][0], 7, 35);
+}
+
+void spaceship_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &spaceship[0][0], 4, 5);
+}
+
+void dragonfly_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &dragonfly[0][0], 6, 7);
+}
+
+void gun_click(GtkButton* button, gpointer user_data)
+{
+    make_field(user_data, &gun[0][0], 9, 36);
 }

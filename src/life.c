@@ -1,7 +1,6 @@
 #include "life.h"
 #include "field.h"
 #include "field_print.h"
-#include "figures.h"
 #include "gui.h"
 #include "logic.h"
 
@@ -15,7 +14,7 @@ void game_of_life(int argc, char* argv[])
 
     GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE];
     int quit_flag = 1;
-    gui(argc, argv, buttons, &quit_flag);
+    gui(argc, argv, buttons, &quit_flag, field);
 
     unsigned char temp_field[FIELD_SIZE][FIELD_SIZE];
 
