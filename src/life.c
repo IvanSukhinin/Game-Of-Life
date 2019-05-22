@@ -2,8 +2,8 @@
 #include "field.h"
 #include "field_print.h"
 #include "figures.h"
-#include "logic.h"
 #include "gui.h"
+#include "logic.h"
 
 #include <unistd.h>
 
@@ -12,7 +12,6 @@ void game_of_life(int argc, char* argv[])
     /*Game of Life*/
     unsigned char field[FIELD_SIZE][FIELD_SIZE];
     init_field(field);
-
 
     GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE];
     int quit_flag = 1;
@@ -43,4 +42,3 @@ void game_of_life(int argc, char* argv[])
         gtk_main_iteration();
     }
 }
-
