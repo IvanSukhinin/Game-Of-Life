@@ -5,9 +5,10 @@
 void gui(
         int argc,
         char* argv[],
-        GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE],
+        const int field_size,
+        GtkWidget* buttons[field_size][field_size],
         int* quit_flag,
-        unsigned char field[FIELD_SIZE][FIELD_SIZE])
+        unsigned char field[])
 {
     /*Отображение окна*/
     GtkWidget *window, *vbox, *grid, *menu_grid, *menu_button[8];
@@ -24,59 +25,59 @@ void gui(
     create_grid(&grid, &window, "grid");
     gtk_box_pack_start(GTK_BOX(vbox), grid, TRUE, TRUE, 0);
 
-    create_buttons_grid(buttons, &grid);
+    create_buttons_grid(field_size, buttons, &grid);
 
     create_grid(&menu_grid, &window, "menu");
     create_menu(&vbox, &menu_grid, menu_button);
 
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
-    signal_events(menu_button, field);
+    signal_events(menu_button, field_size, field);
 
     gtk_widget_show_all(window);
 }
 
 void signal_events(
-        GtkWidget* menu_button[8], unsigned char field[FIELD_SIZE][FIELD_SIZE])
+        GtkWidget* menu_button[8], const int field_size, unsigned char field[])
 {
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+
+    MainField* f = (MainField*)malloc(sizeof(MainField));
+    f->field_size_copy = field_size;
+    f->field_ptr = field;
+
     /*Нажатие на кнопки*/
     g_signal_connect(
-            G_OBJECT(menu_button[0]),
-            "clicked",
-            G_CALLBACK(tumbler_click),
-            field);
+            G_OBJECT(menu_button[0]), "clicked", G_CALLBACK(tumbler_click), f);
     g_signal_connect(
-            G_OBJECT(menu_button[1]),
-            "clicked",
-            G_CALLBACK(glider_click),
-            field);
+            G_OBJECT(menu_button[1]), "clicked", G_CALLBACK(glider_click), f);
     g_signal_connect(
             G_OBJECT(menu_button[2]),
             "clicked",
             G_CALLBACK(oscillator_click),
-            field);
+            f);
     g_signal_connect(
             G_OBJECT(menu_button[3]),
             "clicked",
             G_CALLBACK(pentapole_click),
-            field);
+            f);
     g_signal_connect(
-            G_OBJECT(menu_button[4]),
-            "clicked",
-            G_CALLBACK(tennis_click),
-            field);
+            G_OBJECT(menu_button[4]), "clicked", G_CALLBACK(tennis_click), f);
     g_signal_connect(
             G_OBJECT(menu_button[5]),
             "clicked",
             G_CALLBACK(spaceship_click),
-            field);
+            f);
     g_signal_connect(
             G_OBJECT(menu_button[6]),
             "clicked",
             G_CALLBACK(dragonfly_click),
-            field);
+            f);
     g_signal_connect(
-            G_OBJECT(menu_button[7]), "clicked", G_CALLBACK(gun_click), field);
+            G_OBJECT(menu_button[7]), "clicked", G_CALLBACK(gun_click), f);
 }
 
 void create_menu(
@@ -101,11 +102,13 @@ void create_menu(
 }
 
 void create_buttons_grid(
-        GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE], GtkWidget** grid)
+        const int field_size,
+        GtkWidget* buttons[field_size][field_size],
+        GtkWidget** grid)
 {
     /*Создание клеток*/
-    for (int i = 1; i < FIELD_SIZE - 1; i++) {
-        for (int j = 1; j < FIELD_SIZE - 1; j++) {
+    for (int i = 1; i < field_size - 1; i++) {
+        for (int j = 1; j < field_size - 1; j++) {
             buttons[i][j] = gtk_button_new();
             gtk_widget_set_name(buttons[i][j], "cell");
             gtk_grid_attach(GTK_GRID(*grid), buttons[i][j], j, i, 1, 1);
@@ -163,40 +166,87 @@ void include_css()
 
 void tumbler_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &tumbler[0][0], 6, 7);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+    make_field(f->field_size_copy, f->field_ptr, &tumbler[0][0], 6, 7);
 }
 
 void glider_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &glider[0][0], 3, 3);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &glider[0][0], 3, 3);
 }
 
 void oscillator_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &oscillator[0][0], 12, 11);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &oscillator[0][0], 12, 11);
 }
 
 void pentapole_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &pentapole[0][0], 12, 12);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &pentapole[0][0], 12, 12);
 }
 
 void tennis_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &tennis[0][0], 7, 35);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &tennis[0][0], 7, 35);
 }
 
 void spaceship_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &spaceship[0][0], 4, 5);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &spaceship[0][0], 4, 5);
 }
 
 void dragonfly_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &dragonfly[0][0], 6, 7);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &dragonfly[0][0], 6, 7);
 }
 
 void gun_click(GtkButton* button, gpointer user_data)
 {
-    make_field(user_data, &gun[0][0], 9, 36);
+    typedef struct {
+        int field_size_copy;
+        unsigned char* field_ptr;
+    } MainField;
+    MainField* f = user_data;
+
+    make_field(f->field_size_copy, f->field_ptr, &gun[0][0], 9, 36);
 }
