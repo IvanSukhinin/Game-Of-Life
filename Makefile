@@ -1,4 +1,4 @@
-.PHONY: all test run_test clean
+.PHONY: all test run_test clean install uninstall
 
 CC := gcc
 CFLAGS := -Wall -Werror
@@ -6,6 +6,7 @@ LIFE := ./bin/life
 TEST := ./bin/test
 BUILD_SRC_DIR := ./build/src
 BUILD_TEST_DIR := ./build/test
+INSTALL_PATH := ./usr/local/bin
 
 all: $(LIFE)
 
@@ -15,7 +16,7 @@ $(LIFE): $(BUILD_SRC_DIR)/main.o $(BUILD_SRC_DIR)/gui.o $(BUILD_SRC_DIR)/life.o 
 $(BUILD_SRC_DIR)/main.o: src/main.c 
 	$(CC) $(CFLAGS) -c src/main.c -o $(BUILD_SRC_DIR)/main.o `pkg-config --cflags --libs gtk+-3.0`
 
-$(BUILD_SRC_DIR)/gui.o: src/gui.c src/gui.h
+$(BUILD_SRC_DIR)/gui.o: src/gui.c src/gui.h src/figures.h
 	$(CC) $(CFLAGS) -c src/gui.c -o $(BUILD_SRC_DIR)/gui.o `pkg-config --cflags --libs gtk+-3.0`
 
 $(BUILD_SRC_DIR)/life.o: src/life.c src/life.h
@@ -58,3 +59,9 @@ run_test: test
 
 clean:
 	rm -rf $(BUILD_TEST_DIR)/*.o $(BUILD_SRC_DIR)/*.o $(LIFE) $(TEST)
+
+install: 
+	install bin/life $(INSTALL_PATH)
+
+uninstall:
+	rm -rf $(INSTALL_PATH)/life
