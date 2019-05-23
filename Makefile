@@ -6,7 +6,7 @@ LIFE := ./bin/life
 TEST := ./bin/test
 BUILD_SRC_DIR := ./build/src
 BUILD_TEST_DIR := ./build/test
-INSTALL_PATH := ./usr/local/bin
+INSTALL_PATH := /usr/local/bin
 
 all: $(LIFE)
 
