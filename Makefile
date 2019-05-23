@@ -32,14 +32,14 @@ $(BUILD_SRC_DIR)/field_print.o: src/field_print.c src/const.h
 
 test: $(TEST)
 
-$(TEST): $(BUILD_TEST_DIR)/main.o $(BUILD_SRC_DIR)/gui.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o
-	$(CC) $(CFLAGS) $(BUILD_TEST_DIR)/main.o $(BUILD_SRC_DIR)/gui.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o -o $(TEST) `pkg-config --cflags --libs gtk+-3.0`
+$(TEST): $(BUILD_TEST_DIR)/main.o $(BUILD_TEST_DIR)/gui.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o
+	$(CC) $(CFLAGS) $(BUILD_TEST_DIR)/main.o $(BUILD_TEST_DIR)/gui.o $(BUILD_TEST_DIR)/life.o $(BUILD_TEST_DIR)/logic.o $(BUILD_TEST_DIR)/field.o $(BUILD_TEST_DIR)/field_print.o -o $(TEST) `pkg-config --cflags --libs gtk+-3.0`
 
 $(BUILD_TEST_DIR)/main.o: test/main.c
 	$(CC) $(CFLAGS) -c -I thirdparty -I src test/main.c -o $(BUILD_TEST_DIR)/main.o `pkg-config --cflags --libs gtk+-3.0`
 
-$(BUILD_SRC_DIR)/gui.o: src/gui.c src/const.h
-	$(CC) $(CFLAGS) -c src/gui.c -o $(BUILD_SRC_DIR)/gui.o `pkg-config --cflags --libs gtk+-3.0` 
+$(BUILD_TEST_DIR)/gui.o: src/gui.c src/const.h
+	$(CC) $(CFLAGS) -c -I thirdparty -I src src/gui.c -o $(BUILD_TEST_DIR)/gui.o `pkg-config --cflags --libs gtk+-3.0` 
 
 $(BUILD_TEST_DIR)/life.o: src/life.c src/const.h
 	$(CC) $(CFLAGS) -c -I thirdparty -I src src/life.c -o $(BUILD_TEST_DIR)/life.o `pkg-config --cflags --libs gtk+-3.0`
