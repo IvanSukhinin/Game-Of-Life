@@ -2,6 +2,8 @@
 #include "field.h"
 #include "figures.h"
 
+#include <stdlib.h>
+
 void gui(
         int argc,
         char* argv[],
