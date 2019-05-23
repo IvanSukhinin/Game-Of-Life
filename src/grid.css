@@ -1,15 +1,28 @@
-#grid {
-	background-color: black;
-}
-
 #cell {
 	min-height: 2px; 
 	min-width: 2px;
 	background: black;
-	border: .1px solid #ffffff;
+	border: .1px solid  white;
 	border-radius: 0;
 }
 
 #cell:hover {
 	background: black;
+}
+
+#cell_green {
+	min-height: 2px; 
+	min-width: 2px;
+	background: green;
+	border: .1px solid  white;
+	border-radius: 0;
+}
+
+#menu_buttons {
+	background-color: black;
+	color: white;
+}
+
+#menu_buttons:hover {
+	background-color: #1a1a1a;
 }
