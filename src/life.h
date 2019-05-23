@@ -1,5 +1,3 @@
 #pragma once
 
-#include "const.h"
-
-void game_of_life(int argc, char* argv[]);
+void game_of_life(int argc, char* argv[], const int field_size);

@@ -2,20 +2,21 @@
 
 #include <gtk/gtk.h>
 
-#include "const.h"
-
 void gui(
         int argc,
         char* argv[],
-        GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE],
+        const int field_size,
+        GtkWidget* buttons[field_size][field_size],
         int* quit_flag,
-        unsigned char field[FIELD_SIZE][FIELD_SIZE]);
+        unsigned char field[]);
 void create_buttons_grid(
-        GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE], GtkWidget** grid);
+        const int field_size,
+        GtkWidget* buttons[field_size][field_size],
+        GtkWidget** grid);
 void create_menu(
         GtkWidget** vbox, GtkWidget** menu_grid, GtkWidget* menu_button[8]);
 void signal_events(
-        GtkWidget* menu_button[8], unsigned char field[FIELD_SIZE][FIELD_SIZE]);
+        GtkWidget* menu_button[8], const int field_size, unsigned char field[]);
 void include_css();
 void create_window(GtkWidget** window, gint width, gint height);
 void create_grid(GtkWidget** grid, GtkWidget** window, const gchar* name);

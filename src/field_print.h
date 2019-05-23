@@ -1,9 +1,8 @@
 #pragma once
 
-#include "const.h"
-
 #include <gtk/gtk.h>
 
 void print_field(
-        unsigned char field[FIELD_SIZE][FIELD_SIZE],
-        GtkWidget* buttons[FIELD_SIZE][FIELD_SIZE]);
+        const int field_size,
+        unsigned char field[],
+        GtkWidget* buttons[field_size][field_size]);

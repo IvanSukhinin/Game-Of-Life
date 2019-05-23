@@ -1,33 +1,33 @@
 #include "logic.h"
 
 int get_count_neighbours(
-        unsigned char field[FIELD_SIZE][FIELD_SIZE], int i, int j)
+        const int field_size, unsigned char field[], int i, int j)
 {
     /*Количество соседних живых клеток*/
     int neighbour_cell_count = 0;
 
-    if (field[i][j + 1] == 1) {
+    if (field[i * field_size + j + 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i + 1][j + 1]) {
+    if (field[(i + 1) * field_size + j + 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i + 1][j] == 1) {
+    if (field[(i + 1) * field_size + j] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i + 1][j - 1] == 1) {
+    if (field[(i + 1) * field_size + j - 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i][j - 1] == 1) {
+    if (field[i * field_size + j - 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i - 1][j - 1] == 1) {
+    if (field[(i - 1) * field_size + j - 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i - 1][j] == 1) {
+    if (field[(i - 1) * field_size + j] == 1) {
         neighbour_cell_count++;
     }
-    if (field[i - 1][j + 1] == 1) {
+    if (field[(i - 1) * field_size + j + 1] == 1) {
         neighbour_cell_count++;
     }
 
