@@ -20,7 +20,7 @@ void game_of_life(int argc, char* argv[], const int field_size)
 
     while (quit_flag) {
         print_field(field_size, field, buttons);
-        usleep(20000);
+        usleep(15000);
 
         field_copy(field_size, field, temp_field);
 

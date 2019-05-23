@@ -9,7 +9,7 @@ int get_count_neighbours(
     if (field[i * field_size + j + 1] == 1) {
         neighbour_cell_count++;
     }
-    if (field[(i + 1) * field_size + j + 1]) {
+    if (field[(i + 1) * field_size + j + 1] == 1) {
         neighbour_cell_count++;
     }
     if (field[(i + 1) * field_size + j] == 1) {
