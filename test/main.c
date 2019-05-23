@@ -86,3 +86,55 @@ CTEST(logic_test, pass)
     const int expected = 2;
     ASSERT_EQUAL(expected, result);
 }
+
+CTEST(logic_test, all_life)
+{
+    // Given
+    unsigned char neighbours[FIELD_SIZE];
+    unsigned char field_test[FIELD_SIZE][FIELD_SIZE];
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < FIELD_SIZE; j++) {
+            field_test[i][j] = 1;
+        }
+    }
+
+    // When
+    int j = 1;
+    for (int i = 0; i < FIELD_SIZE - 2; i++) {
+        neighbours[i] = get_count_neighbours(field_test, i + 1, j);
+    }
+
+    // Then
+    unsigned char expected[FIELD_SIZE];
+    for (int i = 0; i < FIELD_SIZE - 2; i++) {
+        expected[i] = 8;
+    }
+
+    ASSERT_DATA(expected, FIELD_SIZE - 2, neighbours, FIELD_SIZE - 2);
+}
+
+CTEST(logic_test, all_death)
+{
+    // Given
+    unsigned char neighbours[FIELD_SIZE];
+    unsigned char field_test[FIELD_SIZE][FIELD_SIZE];
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        for (int j = 0; j < FIELD_SIZE; j++) {
+            field_test[i][j] = 0;
+        }
+    }
+
+    // When
+    int j = 1;
+    for (int i = 0; i < FIELD_SIZE - 2; i++) {
+        neighbours[i] = get_count_neighbours(field_test, i + 1, j);
+    }
+
+    // Then
+    unsigned char expected[FIELD_SIZE];
+    for (int i = 0; i < FIELD_SIZE - 2; i++) {
+        expected[i] = 0;
+    }
+
+    ASSERT_DATA(expected, FIELD_SIZE - 2, neighbours, FIELD_SIZE - 2);
+}
