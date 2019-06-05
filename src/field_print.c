@@ -6,6 +6,7 @@ void print_field(
         GtkWidget* buttons[field_size][field_size])
 {
     /*Вывод поля*/
+    usleep(15000);
     for (int i = 1; i < field_size - 1; i++) {
         for (int j = 1; j < field_size - 1; j++) {
             if (field[i * field_size + j] == 0) {
