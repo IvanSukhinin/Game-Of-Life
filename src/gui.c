@@ -19,7 +19,7 @@ void gui(
 
     include_css();
 
-    create_window(&window, 600, 800);
+    create_window(&window, 300, 400);
     g_signal_connect(window, "destroy", G_CALLBACK(quit), quit_flag);
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);

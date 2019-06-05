@@ -1,6 +1,6 @@
 #cell {
-	min-height: 2px; 
-	min-width: 2px;
+	min-height: .1px; 
+	min-width: .1px;
 	background: black;
 	border: .1px solid  white;
 	border-radius: 0;
@@ -11,8 +11,8 @@
 }
 
 #cell_green {
-	min-height: 2px; 
-	min-width: 2px;
+	min-height: .1px; 
+	min-width: .1px;
 	background: green;
 	border: .1px solid  white;
 	border-radius: 0;
