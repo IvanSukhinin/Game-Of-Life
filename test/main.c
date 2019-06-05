@@ -164,26 +164,8 @@ CTEST(move_test, life_imitation)
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     };
 
-    unsigned char temp_field[field_size * field_size];
-    int neighbour_cell_count;
-    int cell_life;
     // When
-
-    field_copy(field_size, field, temp_field);
-
-    for (int i = 1; i < field_size - 1; i++) {
-        for (int j = 1; j < field_size - 1; j++) {
-            neighbour_cell_count
-                    = get_count_neighbours(field_size, temp_field, i, j);
-            cell_life = life_or_death(
-                    temp_field[i * field_size + j], neighbour_cell_count);
-            if (cell_life == 1) {
-                field[i * field_size + j] = 1;
-            } else if (cell_life == 0) {
-                field[i * field_size + j] = 0;
-            }
-        }
-    }
+    main_logic(field_size, field);
 
     // Then
     unsigned char expected[7 * 7] = {
